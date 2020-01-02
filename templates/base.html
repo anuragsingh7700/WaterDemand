@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nirjal</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'image/logo.png' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<meta charset =UTF-8>
+<body>
+	<section class="header">
+	<header class="head">
+		<div class="logo">
+			<img src="{% static 'image/logo.png' %}" ><h1>Demand Prediction Portal</h1>
+		</div>
+		<nav class="menu">
+			<a href="\">Home</a>
+			<a href="#">Services</a>
+			<a href="#">About us</a>
+		</nav>
+	</header>
+	{% block content %}
+	{% endblock content %}
+</body>
+</html>

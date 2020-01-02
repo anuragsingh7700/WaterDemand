@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container display-4 text-center">
+    <form method="post" onsubmit="return check()" action="\prediction">
+        {% csrf_token %}
+    Select the year :
+    <select class="drop" name="drop" id="drop" class="form-control-lg">
+        <option>select</option>
+        <option>2020</option>
+        <option>2030</option>
+    </select><br>
+    <p id="msg" style="font-size: 25px ;color : red"></p>
+    <input type="submit" value="Confirm" class="mybtn col-md-4 " style="font-size: large">
+    </form>
+</div>
+<h1 style="text-align: center">Entered year is {{year}} for area {{area}}</h1>
+<script>
+
+    function check(){
+    var a = document.getElementById('drop').value;
+    if(a ==='select')
+    {
+        document.getElementById('msg').innerHTML = "**Please select a year**"
+        return false
+}
+}
+</script>
+{% endblock content%}

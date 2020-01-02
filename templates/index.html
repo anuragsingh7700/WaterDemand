@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="question">
+    <h1>What do you want?<br><span class="change_content"></span></h1>
+    <h2>CHOOSE WISELY !</h2>
+</div>
+<main>
+<div class="left_side">Welcome to Mumbai Water Prediction demand Portal.</div>
+<div class="right_side">
+    <form method="post" onsubmit="return check()" action="\prediction">
+        {% csrf_token %}
+    Select the year :
+    <select class="drop" name="drop" id="drop">
+        <option>select</option>
+        <option>2020</option>
+        <option>2030</option>
+    </select><br>
+    <p id="msg" style="font-size: 25px ;color : red"></p>
+    <input type="submit" value="Confirm" class="mybtn">
+    </form>
+</div>
+</main>
+</section>
+<script>
+
+    function check(){
+    var a = document.getElementById('drop').value;
+    if(a ==='select')
+    {
+        document.getElementById('msg').innerHTML = "**Please select a year**"
+        return false
+}
+}
+</script>
+{% endblock content%}

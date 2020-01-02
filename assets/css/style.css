@@ -1,0 +1,134 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	}
+	body{
+	width: 100%;
+	height: 100vh;
+	font-family: sans-serif;
+	background-color: white;
+}
+	.header{
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(0,#37FDFC,#0EBFE9	,#0276FD,#003EFF);
+	clip-path: polygon(0% 0% , 100% 0% , 100% 80%,50% 100% ,0% 80%);
+	}
+	.head{
+	width: 100%;
+	height: 20vh;
+	color: white;
+	position: relative;
+	justify-content: space-between;
+	}
+	.logo{
+	width: 40%;
+	height: 20vh;
+	float: left;
+	position: relative;
+	justify-content: space-around;
+	max-height: 20vh;
+	display: flex
+	}
+	.logo img{
+	position:relative;
+	left: 0;
+	width: auto;
+	height: 100%;
+	}
+	.logo h1{
+	height: 20vh;
+	font-size: 5vh;
+	position:relative;
+	float: right;
+	text-align: center;
+	padding-top: 4vh;
+	}
+	.menu{
+	float: right;
+	display: flex;
+	width: 60%;
+	justify-content: space-around;
+	}
+	.menu a{
+	text-decoration: none;
+	color: white;
+	font-size: 4vh;
+	margin-top: 5vh;
+	transition: .5s;
+	}
+	.menu a:hover{
+	color: black;
+	}
+	body main{
+	display: flex;
+	justify-content: space-between;
+	}
+	.left_side{
+	width: 50%;
+	height: 50vh;
+	font-size: 6vh;
+	margin: 5%;
+	text-align: center;
+	color: white;
+	font-weight: bolder;
+	}
+	.right_side{
+	width: 50%;
+	height: 50vh;
+	font-size: 7vh;
+	margin: 5%;
+	text-align: center;
+	color: white;
+	}
+	.drop{	padding: 2%;
+	text-decoration: none;
+	font-size:50%;
+	background:none;
+	background-image:linear-gradient(90deg,#003EFF,#37FDFC);
+	border-radius: 15px;
+	border: 2px solid white;
+	}
+	.mybtn{
+	padding: 4%;
+	font-size:50%;
+	text-decoration: none;
+	background: none;
+	background-image:linear-gradient(90deg,#003EFF,#37FDFC);
+	border :white 2px solid;
+	border-radius: 20px;
+	transition: 1s;
+	}
+	.mybtn:hover {
+	transition: .5s;
+	background-image:linear-gradient(0,#37FDFC,#003EFF);
+	}
+	.question{
+	width: 100%;
+	height: 20vh;
+	}
+	.question h1{
+	font-size: 8vh;
+	text-align: center;
+	color: white;
+	}
+	.question h2{
+	font-size: 4vh;
+	text-align: center;
+	color: yellow;
+	}
+	.change_content:after{
+	content: '';
+	animation:choice 2s  infinite linear;
+	}
+	@keyframes choice{
+	from{
+	content: "जल";
+	color: blue;
+	}
+	to{
+	content: 'निरजल';
+	color: red;
+	}
+	}
