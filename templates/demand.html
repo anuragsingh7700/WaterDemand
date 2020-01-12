@@ -3,17 +3,19 @@
 <div class="container display-4 text-center">
     <form method="post" onsubmit="return check()" action="\prediction">
         {% csrf_token %}
-    Select the year :
-    <select class="drop" name="drop" id="drop" class="form-control-lg">
+    <h1 style="color: white;">Select the year :<span>
+    <select class="drop" name="drop" id="drop">
         <option>select</option>
         <option>2020</option>
         <option>2030</option>
-    </select><br>
-    <p id="msg" style="font-size: 25px ;color : red"></p>
-    <input type="submit" value="Confirm" class="mybtn col-md-4 " style="font-size: large">
+    </select></span></h1>
+    <p id="msg" style="font-size: 25px ;color : red;font-weight:bold"></p>
+    <input type="submit" value="Confirm" class="mybtn " style="margin: 0;padding:10px">
     </form>
 </div>
-<h1 style="text-align: center">Entered year is {{year}} for area {{area}}</h1>
+</section>
+<h1 style="text-align: center">Entered year is</h1>
+{{values}}
 <script>
 
     function check(){
