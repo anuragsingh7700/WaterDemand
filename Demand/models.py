@@ -6,10 +6,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_squared_error, r2_score
 # Create your models here.
-class norms(models.Model):
-    year = models.IntegerField(primary_key=True)
-    low = models.IntegerField()
-    high = models.IntegerField()
+# class norms(models.Model):
+#     year = models.IntegerField(primary_key=True)
+#     low = models.IntegerField()
+#     high = models.IntegerField()
 
 class island(models.Model):
     year = models.ForeignKey(norms,on_delete=models.CASCADE)
@@ -42,13 +42,13 @@ class predict(models.Model):
 
 
 
-def prediction(object):
+# def prediction(area):
     #linear regression working code
-        datas = western.objects.all()
+        # datas = area.objects.all()
 
-        x=[]
-        y=[]
-        z = []
+        # x=[]
+        # y=[]
+        # z = []
         # z = np.array(z)
         # for data in datas:
         #     x.append([data.year.year])
@@ -63,20 +63,22 @@ def prediction(object):
 
         #Polynomial regression working code
 
-        for data in datas:
-            x.append([data.year.year])
-            y.append([data.actualDem])
-            count+=1
+        # for data in datas:
+        #     x.append([data.year.year])
+        #     y.append([(data.actualDem)-(data.normsPred)])
+        #     count+=1
 
 
         
-        x = np.array(x)
-        y = np.array(y)
-        poly = PolynomialFeatures()
-        x_poly = poly.fit_transform(z)
-        lin = LinearRegression()
-        lin.fit(x_poly,y)
-        val=lin.predict(poly.fit_transform(y))
+        # x = np.array(x)
+        # y = np.array(y)
+        # poly = PolynomialFeatures()
+        # x_poly = poly.fit_transform(z)
+        # lin = LinearRegression()
+        # lin.fit(x_poly,y)
+        # val=lin.predict(poly.fit_transform(y))
+
+
         # rmse = np.sqrt(mean_squared_error(y,val))
         # r2 = r2_score(y,val)
 
@@ -85,12 +87,15 @@ def prediction(object):
 #Signals Implementation for calculating prediction values
 @receiver(signals.post_save,sender=western)
 def calcwest(sender,instance,**kwargs):
-    prediction(sender)
+    # prediction(sender)
+    pass
 
 @receiver(signals.post_save,sender=eastern)
 def calceast(sender,instance,**kwargs):
-    prediction(sender)
+    # prediction(sender)
+    pass
 
 @receiver(signals.post_save,sender=island)
 def calcisland(sender,instance,**kwargs):
-    prediction(sender)
+    # prediction(sender)
+    pass

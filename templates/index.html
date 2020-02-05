@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="question">
+<div class="question"><h1>Welcome to <em>Mumbai Water Prediction</em> demand Portal.</h1></div>
+<main>
+<div class="left_side question">
     <h1>What do you want?<br><span class="change_content"></span></h1>
     <h2>CHOOSE WISELY !</h2>
 </div>
-<main>
-<div class="left_side">Welcome to Mumbai Water Prediction demand Portal.</div>
 <div class="right_side">
     <form method="post" onsubmit="return check()" action="\prediction">
         {% csrf_token %}

@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('',include('Demand.urls')),
     path('admin/', admin.site.urls),
+    path('prediction/',include('Demand.urls'))
 ]
