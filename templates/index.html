@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="question"><h1>Welcome to <em>Mumbai Water Prediction</em> demand Portal.</h1></div>
+<div class="question"><h1>Welcome to Mumbai Water demand<br> Prediction Portal.</h1></div>
 <main>
 <div class="left_side question">
     <h1>What do you want?<br><span class="change_content"></span></h1>
@@ -12,8 +12,6 @@
     Select the year :
     <select class="drop" name="drop" id="drop">
         <option>select</option>
-        <option>2020</option>
-        <option>2030</option>
     </select><br>
     <p id="msg" style="font-size: 25px ;color : red"></p>
     <input type="submit" value="Confirm" class="mybtn">
@@ -31,5 +29,18 @@
         return false
 }
 }
+</script>
+<script>
+    var i = 1;
+    var d = new Date();
+    year = d.getFullYear();
+    var sel = document.getElementById('drop');
+    while(i<=20)
+    {   var opt = document.createElement('option');
+        opt.appendChild(document.createTextNode(year+i))
+        opt.value=year+i;
+        sel.appendChild(opt);
+        i++;
+    }
 </script>
 {% endblock content%}

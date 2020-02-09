@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static%}
 {% block content %}
 <div class="container display-4 text-center">
     <form method="post" onsubmit="return check()" action="\prediction">
@@ -6,15 +7,37 @@
     <h1 style="color: white;">Select the year :<span>
     <select class="drop" name="drop" id="drop">
         <option>select</option>
-        <option>2020</option>
-        <option>2030</option>
     </select></span></h1>
     <p id="msg" style="font-size: 25px ;color : red;font-weight:bold"></p>
     <input type="submit" value="Confirm" class="mybtn " style="margin: 0;padding:10px">
     </form>
 </div><br><br>
-<h1 style="text-align: center">Entered prediction for {{year}} is {{values}}</h1>
+<h1 style="text-align: center">Entered prediction for {{year}} is {{dem_value}} Mld<br> having population {{popln_value}}</h1>
+
+
+
+
+<!-- Scroll down Arrow-->
+<div class="arrow" style="width='100%';margin:auto;position :absolute;bottom:20px;left:50%;transform:translateX(-50%)">
+<img src="{% static 'image/arrow.png' %}" width="100px" height="auto" id = "arrow">    
+</div>
+
 </section>
+<div class="container-fluid" >
+    <canvas id="totalChart"></canvas>
+</div><br>
+<div class="container-fluid" >
+    <canvas id="westernChart"></canvas>
+</div><br>
+<div class="container-fluid" >
+    <canvas id="easternChart"></canvas>
+</div><br>
+<div class="container-fluid" >
+    <canvas id="islandChart"></canvas>
+</div><br>
+<div class="container-fluid" style="width:60%;height:auto" >
+    <canvas id="pieChart"></canvas>
+</div>
 <script>
 
     function check(){
@@ -26,46 +49,293 @@
 }
 }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-<canvas id="myChart" width="400" height="400"></canvas>
-<div style="width:40%;height:50vh"><script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'Western prediction',
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1, 
-            data: [0, 10, 5, 2, 20, 30, 42]
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+<script>
+    var i = 1;
+    var d = new Date();
+    year = d.getFullYear();
+    var sel = document.getElementById('drop');
+    while(i<=20)
+    {   var opt = document.createElement('option');
+        opt.appendChild(document.createTextNode(year+i))
+        opt.value=year+i;
+        sel.appendChild(opt);
+        i++;
     }
-});
 </script>
-</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+<script>
+    let totalChart = document.getElementById('totalChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#000';
+
+    let totalDemandChart = new Chart(totalChart, {
+      type:'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[{% for years in western %}{{years.year}},{% endfor %}{{year}}],
+        datasets:[{
+          label:'Demand(in Mld)',
+          data:[
+            {% for demand in old_total_dem %}{{demand}},{% endfor %}
+            {{dem_value}}
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+          'rgba(255, 99, 132, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Total Demand for Mumbai',
+          fontSize:25,
+        },
+        legend:{
+          display:true,
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:100,
+            right:50,
+            bottom:0,
+            top:0
+          }
+        }
+      }
+    });
+  </script>
+
+
+<script>
+    let westernChart = document.getElementById('westernChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#000';
+
+    let westernDemandChart = new Chart(westernChart, {
+      type:'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[{% for years in western %}{{years.year}},{% endfor %}{{year}}],
+        datasets:[{
+          label:'Demand(in Mld)',
+          data:[
+            {% for demand in western %}{{demand.actualDem}},{% endfor %}
+            {{west_dem}}
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Demand in western line',
+          fontSize:25,
+        },
+        legend:{
+          display:true,
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:100,
+            right:50,
+            bottom:0,
+            top:0
+          }
+        }
+      }
+    });
+  </script>
+
+
+
+<script>
+    let easternChart = document.getElementById('easternChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#000';
+
+    let easternDemandChart = new Chart(easternChart, {
+      type:'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[{% for years in eastern %}{{years.year}},{% endfor %}{{year}}],
+        datasets:[{
+          label:'Demand(in Mld)',
+          data:[
+            {% for demand in eastern %}{{demand.actualDem}},{% endfor %}
+            {{east_dem}}
+          ],
+          //backgroundColor:'green',
+          backgroundColor:'rgba(255, 159, 64, 0.6)',
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Demand in Eastern line',
+          fontSize:25,
+        },
+        legend:{
+          display:true,
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:100,
+            right:50,
+            bottom:0,
+            top:0
+          }
+        }
+      }
+    });
+  </script>
+<script>
+    let islandChart = document.getElementById('islandChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#000';
+
+    let islandDemandChart = new Chart(islandChart, {
+      type:'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[{% for years in island %}{{years.year}},{% endfor %}{{year}}],
+        datasets:[{
+          label:'Demand(in Mld)',
+          data:[
+            {% for demand in island %}{{demand.actualDem}},{% endfor %}
+            {{island_dem}}
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(153, 102, 255, 0.6)',
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Demand in island line',
+          fontSize:25,
+        },
+        legend:{
+          display:true,
+          labels:{
+            fontColor:'#000',
+          }
+        },
+        layout:{
+          padding:{
+            left:100,
+            right:50,
+            bottom:0,
+            top:0
+          }
+        }
+      }
+    });
+  </script>
+
+
+<script>
+    let pieChart = document.getElementById('pieChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#000';
+
+    let pieDemandChart = new Chart(pieChart, {
+      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:['Western','Eastern','Island'],
+        datasets:[{
+          label:'Demand(in Mld)',
+          data:[
+            {{west_dem}},
+            {{east_dem}},
+            {{island_dem}}
+          ],
+          //backgroundColor:'green',
+          backgroundColor:['#eb3b5a',
+          '#26de81',
+          '#8854d0'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000',
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Predicted demand in {{year}}',
+          fontSize:25,
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:100,
+            right:50,
+            bottom:0,
+            top:0
+          }
+        }
+      }
+    });
+  </script>
+
+
 {% endblock content%}

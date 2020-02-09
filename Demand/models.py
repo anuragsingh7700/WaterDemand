@@ -12,21 +12,21 @@ from sklearn.metrics import mean_squared_error, r2_score
 #     high = models.IntegerField()
 
 class island(models.Model):
-    year = models.ForeignKey(norms,on_delete=models.CASCADE)
+    year = models.IntegerField()
     population = models.IntegerField()
     # high = models.IntegerField()
     # normsPred = models.IntegerField()
     actualDem = models.IntegerField()
 
 class eastern(models.Model):
-    year = models.ForeignKey(norms,on_delete=models.CASCADE)
+    year = models.IntegerField()
     population = models.IntegerField()
     # high = models.IntegerField()
     # normsPred = models.IntegerField()
     actualDem = models.IntegerField()
     
 class western(models.Model):
-    year = models.ForeignKey(norms,on_delete=models.CASCADE)
+    year = models.IntegerField()
     population = models.IntegerField()
     # high = models.IntegerField()
     # normsPred = models.IntegerField()
