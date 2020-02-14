@@ -5,6 +5,7 @@
 	<title>Nirjal</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'image/logo.png' %}">
+	{% block title %}{% endblock%}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <meta charset =UTF-8>
@@ -16,7 +17,7 @@
 		</div>
 		<nav class="menu">
 			<a href="\">Home</a>
-			<a href="#">References</a>
+			<a href="\reference">References</a>
 			<a href="#">About us</a>
 		</nav>
 	</header>
