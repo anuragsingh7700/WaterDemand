@@ -103,3 +103,6 @@ def prediction(request):
 
 def reference(request):
     return render(request,'reference.html')
+
+def about(request):
+    return render(request,'about.html')
