@@ -20,5 +20,6 @@ urlpatterns = [
     path('',include('Demand.urls')),
     path('admin/', admin.site.urls),
     path('prediction/',include('Demand.urls')),
-    path('reference/',include('Demand.urls'))
+    path('reference/',include('Demand.urls')),
+    path('about/',include('Demand.urls'))
 ]
